@@ -193,8 +193,9 @@ void displayFinalScore() {
     flashRainbow();
   } else {
     delay(10000); // Show the game over screen for 10 seconds
-    displayReadyScreen();
   }
+  resetLEDs(); // Reset LEDs for the next game
+  displayReadyScreen();
 }
 
 void flashRainbow() {
@@ -208,7 +209,15 @@ void flashRainbow() {
   }
   FastLED.clear();
   FastLED.show();
+  resetLEDs(); // Reset LEDs for the next game
   displayReadyScreen();
+}
+
+void resetLEDs() {
+  for (int i = 0; i < numPixels; i++) {
+    pixels[i] = CRGB::Black; // Turn off all LEDs
+  }
+  FastLED.show();
 }
 
 void displayReadyScreen() {
